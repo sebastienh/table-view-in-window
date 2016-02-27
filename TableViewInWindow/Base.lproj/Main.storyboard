@@ -680,13 +680,13 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="bmh-EJ-Yjc">
-                                            <rect key="frame" x="0.0" y="0.0" width="403" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="103" height="270"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="400" minWidth="400" maxWidth="1000" id="cAy-2w-V2E">
+                                                <tableColumn width="100" minWidth="100" maxWidth="1000" id="cAy-2w-V2E">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -699,14 +699,15 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" id="afl-d6-xCx">
-                                                            <rect key="frame" x="1" y="1" width="328" height="17"/>
+                                                        <tableCellView horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" misplaced="YES" id="afl-d6-xCx">
+                                                            <rect key="frame" x="1" y="1" width="6" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VmU-IS-X0K">
-                                                                    <rect key="frame" x="1" y="0.0" width="326" height="17"/>
-                                                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" title="Text that is too long for the cell and that is truncated." usesSingleLineMode="YES" id="jZr-de-TFd">
+                                                                <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VmU-IS-X0K">
+                                                                    <rect key="frame" x="1" y="0.0" width="4" height="17"/>
+                                                                    <textFieldCell key="cell" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="jZr-de-TFd">
                                                                         <font key="font" metaFont="system"/>
+                                                                        <string key="title">Text is too long for the table cell view. Right now it is truncated but I would like the table view and NSWindow to adjust to the size (width, no wrapping) of it.</string>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -729,11 +730,15 @@
                                             </tableColumns>
                                             <connections>
                                                 <outlet property="dataSource" destination="XfG-lQ-9wD" id="RFJ-Og-zYM"/>
+                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="JWU-Q7-4wz"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="5IT-Se-Had"/>
+                                </constraints>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="qb5-6L-uyk">
                                     <rect key="frame" x="0.0" y="254" width="100" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -752,7 +757,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="bmh-EJ-Yjc" id="Shb-If-VJH"/>
+                        <outlet property="localTableView" destination="bmh-EJ-Yjc" id="GXL-hu-aNY"/>
+                        <outlet property="scrollView" destination="b9f-6P-bh3" id="62f-wb-NzR"/>
+                        <outlet property="scrollViewWidthConstraint" destination="5IT-Se-Had" id="Nao-wI-Jmj"/>
+                        <outlet property="tableColumn" destination="cAy-2w-V2E" id="51y-3Y-7j3"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

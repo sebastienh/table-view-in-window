@@ -8,22 +8,81 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTableViewDataSource {
+extension NSView {
+    
+    ///
+    /// Functions that returns an array of all the constraints affecting a
+    /// certain NSLayoutAttribute.
+    ///
+    func constraintsForAttribute(attribute: NSLayoutAttribute) -> [NSLayoutConstraint] {
+        
+        return constraints.filter { (constraint) -> Bool in
+            
+            return constraint.firstAttribute == attribute
+        }
+    }
+    
+    ///
+    /// Return the first constraint affecting a certain NSLayoutAttribute.
+    ///
+    func constraintForAttribute(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+        
+        let constraints = constraintsForAttribute(attribute)
+        
+        if let first = constraints.first {
+            
+            return first
+        }
+        
+        return nil
+    }
+}
 
-    @IBOutlet var tableView: NSTableView!
+class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+
+    @IBOutlet var localTableView: NSTableView!
+    @IBOutlet var scrollView: NSScrollView!
+    @IBOutlet var tableColumn: NSTableColumn!
+    @IBOutlet var scrollViewWidthConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.updateTable()
     }
 
     override var representedObject: AnyObject? {
+
         didSet {
-        // Update the view, if already loaded.
+        
+            // Update the view, if already loaded.
         }
     }
 
+    func updateTable() {
+        
+        localTableView.reloadData()
+        
+        var computedWidth: CGFloat = 0
+        
+        for var row = 0; row < 10; row++  {
+            
+            let tableCellView = self.tableView(localTableView, viewForTableColumn: tableColumn, row: row) as! NSTableCellView
+            
+            computedWidth = max(computedWidth, tableCellView.textField!.intrinsicContentSize.width)
+        }
+        
+        scrollViewWidthConstraint!.constant = computedWidth
+        
+        scrollView.needsUpdateConstraints = true
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                  MARK: NSTableViewDelegate protocol implementation
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                  MARK: NSTableViewDataSource protocol implementation
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
